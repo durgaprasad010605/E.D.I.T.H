@@ -1,0 +1,4 @@
+# E.D.I.T.H. - Milestone 1 Requirements
+# Lightweight, offline, zero paid dependencies
+pywebview>=6.0.0
+psutil>=5.9.0

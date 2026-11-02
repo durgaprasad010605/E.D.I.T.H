@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E.D.I.T.H. // Desktop Interface</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-cyan">
+  <!-- Ambient Background Grids -->
+  <div class="hud-background">
+    <div class="radial-glow"></div>
+    <div class="grid-overlay"></div>
+    <div class="scanline"></div>
+  </div>
+
+  <!-- Top Navigation / Header -->
+  <header class="hud-header">
+    <div class="header-left">
+      <div class="logo-box">
+        <span class="logo-beacon"></span>
+        <h1 class="logo-title">E.D.I.T.H.</h1>
+      </div>
+      <div class="logo-subtext">EVEN DEAD, I'M THE HERO <span class="tag-version">v1.0-M1</span></div>
+    </div>
+
+    <div class="header-center">
+      <div class="status-badge" id="status-protocol">
+        <span class="badge-dot"></span>
+        <span class="badge-text">PROTOCOL: LOCALHOST SECURE</span>
+      </div>
+      <div class="status-badge secondary" id="status-uptime">
+        <span class="badge-text">UPTIME: 00:00:00</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="quick-stat" id="stat-cpu">
+        <span class="stat-label">CPU</span>
+        <span class="stat-val" id="header-cpu-val">--%</span>
+      </div>
+      <div class="quick-stat" id="stat-ram">
+        <span class="stat-label">RAM</span>
+        <span class="stat-val" id="header-ram-val">-- GB</span>
+      </div>
+      <button class="hud-icon-btn" id="btn-clear-chat" title="Clear Chat History">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"></polyline>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        </svg>
+      </button>
+      <button class="hud-icon-btn" id="btn-open-settings" title="System Settings">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Viewport (Split Layout) -->
+  <main class="hud-main">
+    <!-- Left Stage: Core Visualizer & Telemetry -->
+    <section class="stage-left">
+      <!-- Arc Reactor Core Visualizer -->
+      <div class="visualizer-container">
+        <div class="arc-reactor-wrapper">
+          <!-- Canvas for 60fps dynamic wave & particle field -->
+          <canvas id="visualizer-canvas" width="340" height="340"></canvas>
+
+          <!-- Outer rotating holographic rings -->
+          <div class="ring outer-ring-ticks"></div>
+          <div class="ring middle-ring-dashed"></div>
+          <div class="ring inner-ring-solid"></div>
+
+          <!-- Central Core Glow & State Badge -->
+          <div class="core-center">
+            <div class="core-pulse"></div>
+            <div class="core-label" id="core-status-label">STANDBY</div>
+            <div class="core-sublabel" id="core-engine-label">LOCAL MOCK v1.0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Hardware Telemetry Cards -->
+      <div class="telemetry-grid">
+        <div class="tele-card">
+          <div class="card-header">
+            <span class="card-title">PROCESSOR LOAD</span>
+            <span class="card-value" id="card-cpu-val">0%</span>
+          </div>
+          <div class="meter-bar-track">
+            <div class="meter-bar-fill" id="meter-cpu-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="tele-card">
+          <div class="card-header">
+            <span class="card-title">SYSTEM MEMORY</span>
+            <span class="card-value" id="card-ram-val">0 / 16 GB</span>
+          </div>
+          <div class="meter-bar-track">
+            <div class="meter-bar-fill" id="meter-ram-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="tele-card">
+          <div class="card-header">
+            <span class="card-title">POWER SUBSYSTEM</span>
+            <span class="card-value" id="card-battery-val">100%</span>
+          </div>
+          <div class="meter-bar-track">
+            <div class="meter-bar-fill" id="meter-battery-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div class="tele-card">
+          <div class="card-header">
+            <span class="card-title">STORAGE VOLUME</span>
+            <span class="card-value" id="card-disk-val">-- GB Free</span>
+          </div>
+          <div class="meter-bar-track">
+            <div class="meter-bar-fill" id="meter-disk-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Command Chips -->
+      <div class="quick-commands">
+        <span class="quick-label">DIRECTIVES:</span>
+        <button class="chip-btn" data-prompt="Status report">Status Report</button>
+        <button class="chip-btn" data-prompt="Current time and date">Time & Date</button>
+        <button class="chip-btn" data-prompt="Who are you?">Identity</button>
+        <button class="chip-btn" data-prompt="Security protocols">Protocols</button>
+        <button class="chip-btn" data-prompt="Help">Help</button>
+      </div>
+    </section>
+
+    <!-- Right Stage: Communications Console (Chat) -->
+    <section class="stage-right">
+      <div class="console-box">
+        <!-- Console Header -->
+        <div class="console-header">
+          <div class="console-header-left">
+            <span class="terminal-beacon"></span>
+            <span class="console-title">COMMUNICATIONS CONSOLE</span>
+          </div>
+          <div class="console-header-right">
+            <span class="log-indicator">ENCRYPTED // LOCALHOST</span>
+          </div>
+        </div>
+
+        <!-- Messages Scrolling Container -->
+        <div class="messages-container" id="messages-container">
+          <!-- Dynamic messages will be appended here -->
+        </div>
+
+        <!-- Console Input Bar -->
+        <div class="console-input-area">
+          <form id="chat-form" class="input-form">
+            <!-- Voice Input Button (Placeholder for M2) -->
+            <button type="button" class="btn-mic" id="btn-mic" title="Voice Input (Ready for Milestone 2)">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+            </button>
+
+            <!-- Text Input Field -->
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                id="user-input" 
+                placeholder="Speak or type your command, Boss..." 
+                autocomplete="off" 
+                spellcheck="false"
+              />
+            </div>
+
+            <!-- Send Button -->
+            <button type="submit" class="btn-send" id="btn-send" title="Transmit Directive">
+              <span>SEND</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <span class="modal-icon">&#9881;</span>
+          <h2>E.D.I.T.H. SYSTEM CONFIGURATION</h2>
+        </div>
+        <button class="modal-close-btn" id="btn-close-settings">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="setting-group">
+          <label class="setting-label">OPERATOR CALLSIGN</label>
+          <input type="text" id="setting-callsign" class="setting-input" value="Boss" />
+          <span class="setting-hint">Name or title EDITH uses to address you.</span>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">HUD THEME ACCENT</label>
+          <div class="theme-picker">
+            <button class="theme-choice active" data-theme="cyan">
+              <span class="theme-swatch swatch-cyan"></span> Stark Cyan
+            </button>
+            <button class="theme-choice" data-theme="amber">
+              <span class="theme-swatch swatch-amber"></span> Mark 85 Amber
+            </button>
+            <button class="theme-choice" data-theme="stealth">
+              <span class="theme-swatch swatch-stealth"></span> Stealth Violet
+            </button>
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">AUDIO FEEDBACK</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="setting-sound-fx" checked />
+            <span class="slider"></span>
+            <span class="toggle-text">Synthesized UI Sound FX</span>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">AI REASONING CORE</label>
+          <select id="setting-brain-choice" class="setting-select" disabled>
+            <option value="mock" selected>Local Mock Brain v1.0 (Active)</option>
+            <option value="ollama">Local Ollama LLM (Milestone 5)</option>
+            <option value="custom">Custom Endpoint (Future)</option>
+          </select>
+          <span class="setting-hint">Currently on Milestone 1: Lightweight zero-overhead mock core.</span>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">VOICE SYNTHESIS (MILESTONE 2 PREVIEW)</label>
+          <div class="preview-box">
+            <span>Voice Status:</span>
+            <span class="badge-text" style="color: var(--accent-cyan);">Piper TTS / Edge-TTS Prepared</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="hud-btn secondary" id="btn-save-settings">APPLY CONFIGURATION</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio feedback synthesizers (Web Audio API) & UI script -->
+  <script src="app.js"></script>
+</body>
+</html>
