@@ -21,7 +21,7 @@
         <span class="logo-beacon"></span>
         <h1 class="logo-title">E.D.I.T.H.</h1>
       </div>
-      <div class="logo-subtext">EVEN DEAD, I'M THE HERO <span class="tag-version">v1.0-M1</span></div>
+      <div class="logo-subtext">EVEN DEAD, I'M THE HERO <span class="tag-version">v4.4-M4.4</span></div>
     </div>
 
     <div class="header-center">
@@ -31,6 +31,10 @@
       </div>
       <div class="status-badge secondary" id="status-uptime">
         <span class="badge-text">UPTIME: 00:00:00</span>
+      </div>
+      <div class="status-badge" id="status-wakeword-badge" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">
+        <span class="badge-dot" style="background: var(--accent-cyan);"></span>
+        <span class="badge-text" id="badge-wakeword-text">WAKE WORD: ACTIVE</span>
       </div>
     </div>
 
@@ -43,10 +47,37 @@
         <span class="stat-label">RAM</span>
         <span class="stat-val" id="header-ram-val">-- GB</span>
       </div>
+      <button class="hud-icon-btn active" id="btn-wakeword-toggle" title="Hands-Free Wake Word ('Hey EDITH'): Active">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+          <line x1="12" y1="19" x2="12" y2="23"></line>
+          <line x1="8" y1="23" x2="16" y2="23"></line>
+        </svg>
+      </button>
+      <button class="hud-icon-btn" id="btn-mute-toggle" title="Toggle Voice Output (Mute / Unmute)">
+        <svg id="icon-unmuted" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <svg id="icon-muted" class="hidden" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+      </button>
       <button class="hud-icon-btn" id="btn-clear-chat" title="Clear Chat History">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
           <polyline points="3 6 5 6 21 6"></polyline>
           <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        </svg>
+      </button>
+      <button class="hud-icon-btn" id="btn-open-archive" title="Tactical Archive (Memories, Tasks & Reminders)">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          <line x1="9" y1="7" x2="15" y2="7"></line>
+          <line x1="9" y1="11" x2="15" y2="11"></line>
         </svg>
       </button>
       <button class="hud-icon-btn" id="btn-open-settings" title="System Settings">
@@ -128,10 +159,11 @@
       <!-- Quick Command Chips -->
       <div class="quick-commands">
         <span class="quick-label">DIRECTIVES:</span>
-        <button class="chip-btn" data-prompt="Status report">Status Report</button>
-        <button class="chip-btn" data-prompt="Current time and date">Time & Date</button>
-        <button class="chip-btn" data-prompt="Who are you?">Identity</button>
-        <button class="chip-btn" data-prompt="Security protocols">Protocols</button>
+        <button class="chip-btn" data-prompt="Status report">Status</button>
+        <button class="chip-btn" data-prompt="What are my pending tasks?">Tasks</button>
+        <button class="chip-btn" data-prompt="What do you remember?">Memories</button>
+        <button class="chip-btn" data-prompt="What reminders do I have?">Reminders</button>
+        <button class="chip-btn" data-prompt="Current time and date">Time</button>
         <button class="chip-btn" data-prompt="Help">Help</button>
       </div>
     </section>
@@ -158,9 +190,9 @@
         <!-- Console Input Bar -->
         <div class="console-input-area">
           <form id="chat-form" class="input-form">
-            <!-- Voice Input Button (Placeholder for M2) -->
-            <button type="button" class="btn-mic" id="btn-mic" title="Voice Input (Ready for Milestone 2)">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <!-- Voice Input Button (Milestone 2B) -->
+            <button type="button" class="btn-mic" id="btn-mic" title="Voice Input: Click to Speak / Click to Stop">
+              <svg id="mic-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
                 <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
                 <line x1="12" y1="19" x2="12" y2="23"></line>
@@ -246,16 +278,125 @@
         </div>
 
         <div class="setting-group">
-          <label class="setting-label">VOICE SYNTHESIS (MILESTONE 2 PREVIEW)</label>
-          <div class="preview-box">
-            <span>Voice Status:</span>
-            <span class="badge-text" style="color: var(--accent-cyan);">Piper TTS / Edge-TTS Prepared</span>
+          <label class="setting-label">OFFLINE VOICE SYNTHESIS (PIPER TTS)</label>
+          <div class="voice-config-box">
+            <div class="voice-info-row">
+              <span class="voice-name">Model: en_US-amy-medium</span>
+              <span class="badge-text" id="modal-voice-status" style="color: var(--status-green);">Active // Ready</span>
+            </div>
+            <div class="voice-actions-row">
+              <button type="button" class="hud-btn secondary" id="btn-test-voice">
+                <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2" style="margin-right: 4px; vertical-align: middle;">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                TEST VOICE
+              </button>
+              <button type="button" class="hud-btn outline" id="btn-modal-mute-toggle">
+                MUTE VOICE
+              </button>
+            </div>
           </div>
+          <span class="setting-hint">100% offline neural voice engine. Natural female American-English tone.</span>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">OFFLINE SPEECH RECOGNITION (FASTER-WHISPER)</label>
+          <div class="voice-config-box">
+            <div class="voice-info-row">
+              <span class="voice-name">Model: tiny.en (INT8 CPU)</span>
+              <span class="badge-text" id="modal-stt-status" style="color: var(--status-green);">Active // Ready</span>
+            </div>
+            <div class="voice-info-row" style="margin-top: 4px;">
+              <span class="setting-hint" id="modal-mic-name">Input: Default System Microphone</span>
+            </div>
+          </div>
+          <span class="setting-hint">100% offline speech recognition. In-memory processing with zero voice storage.</span>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">HANDS-FREE WAKE-WORD ACTIVATION ("HEY EDITH")</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="setting-wake-word" checked />
+            <span class="slider"></span>
+            <span class="toggle-text">Enable "Hey EDITH" Hands-Free Wake Word</span>
+          </label>
+          <span class="setting-hint">100% local offline voice activation. Say "Hey EDITH" to automatically record your commands without clicking. Releases microphone immediately when disabled.</span>
+        </div>
+
+        <div class="setting-group" id="group-silence-timeout">
+          <label class="setting-label">SPEECH SILENCE DETECTION TIMEOUT (SECONDS)</label>
+          <input type="number" id="setting-silence-timeout" class="setting-input" min="0.5" max="4.0" step="0.1" value="1.5" />
+          <span class="setting-hint">Continuous silence duration (default: 1.5s) before EDITH automatically stops recording.</span>
         </div>
       </div>
 
       <div class="modal-footer">
         <button class="hud-btn secondary" id="btn-save-settings">APPLY CONFIGURATION</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tactical Archive (Memory, Tasks, Reminders) Modal -->
+  <div class="modal-overlay" id="archive-modal">
+    <div class="modal-card archive-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <span class="modal-icon">&#128218;</span>
+          <h2>TACTICAL ARCHIVE // MEMORY & TASKS</h2>
+        </div>
+        <button class="modal-close-btn" id="btn-close-archive">&times;</button>
+      </div>
+
+      <!-- Archive Navigation Tabs -->
+      <div class="archive-tabs">
+        <button class="archive-tab-btn active" data-tab="tab-memories">MEMORIES (<span id="count-memories">0</span>)</button>
+        <button class="archive-tab-btn" data-tab="tab-tasks">TASKS (<span id="count-tasks">0</span>)</button>
+        <button class="archive-tab-btn" data-tab="tab-reminders">REMINDERS (<span id="count-reminders">0</span>)</button>
+      </div>
+
+      <div class="modal-body archive-body">
+        <!-- 1. MEMORIES TAB -->
+        <div class="archive-tab-pane active" id="tab-memories">
+          <div class="archive-input-bar">
+            <input type="text" id="input-new-memory" class="archive-input" placeholder="Remember something: e.g. 'My project is EDITH'..." />
+            <button class="hud-btn primary" id="btn-add-memory">+ REMEMBER</button>
+          </div>
+          <div class="archive-search-bar">
+            <input type="text" id="search-memories" class="archive-search-input" placeholder="Filter memories..." />
+          </div>
+          <div class="archive-list" id="memories-list">
+            <!-- Dynamic memories populated here -->
+          </div>
+        </div>
+
+        <!-- 2. TASKS TAB -->
+        <div class="archive-tab-pane" id="tab-tasks">
+          <div class="archive-input-bar">
+            <input type="text" id="input-new-task" class="archive-input" placeholder="New task title: e.g. 'Finish documentation'..." />
+            <input type="text" id="input-task-due" class="archive-input date-input" placeholder="Due date (optional)..." />
+            <button class="hud-btn primary" id="btn-add-task">+ ADD TASK</button>
+          </div>
+          <div class="task-filter-chips">
+            <button class="task-filter-btn active" data-filter="all">ALL</button>
+            <button class="task-filter-btn" data-filter="pending">PENDING</button>
+            <button class="task-filter-btn" data-filter="completed">COMPLETED</button>
+          </div>
+          <div class="archive-list" id="tasks-list">
+            <!-- Dynamic tasks populated here -->
+          </div>
+        </div>
+
+        <!-- 3. REMINDERS TAB -->
+        <div class="archive-tab-pane" id="tab-reminders">
+          <div class="archive-input-bar">
+            <input type="text" id="input-new-reminder" class="archive-input" placeholder="Reminder title: e.g. 'Run diagnostics'..." />
+            <input type="datetime-local" id="input-reminder-time" class="archive-input datetime-input" />
+            <button class="hud-btn primary" id="btn-add-reminder">+ SET REMINDER</button>
+          </div>
+          <div class="archive-list" id="reminders-list">
+            <!-- Dynamic reminders populated here -->
+          </div>
+        </div>
       </div>
     </div>
   </div>

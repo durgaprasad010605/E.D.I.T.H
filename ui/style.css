@@ -287,6 +287,18 @@ body {
   transform: translateY(-1px);
 }
 
+.hud-icon-btn.active {
+  background: rgba(0, 240, 255, 0.22);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+#btn-wakeword-toggle:not(.active) {
+  opacity: 0.45;
+  border-color: var(--border-dim);
+  color: var(--text-muted);
+}
+
 /* ============================================================
    MAIN VIEWPORT & SPLIT STAGES
    ============================================================ */
@@ -770,13 +782,41 @@ body {
   background: var(--status-red);
   color: #fff;
   border-color: var(--status-red);
-  box-shadow: 0 0 15px var(--status-red);
-  animation: micPulse 1s infinite alternate;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.8), 0 0 35px rgba(239, 68, 68, 0.4);
+  animation: micPulse 0.9s infinite alternate;
+}
+
+.btn-mic.processing {
+  background: rgba(0, 240, 255, 0.2);
+  color: var(--accent-cyan);
+  border: 2px dashed var(--accent-cyan);
+  box-shadow: 0 0 15px var(--accent-glow);
+  animation: micSpin 1.2s linear infinite;
+}
+
+.btn-mic.recognized {
+  background: var(--status-green);
+  color: #fff;
+  border-color: var(--status-green);
+  box-shadow: 0 0 20px var(--status-green);
+  transition: all 0.3s ease;
+}
+
+.btn-mic.error {
+  background: var(--status-amber);
+  color: #fff;
+  border-color: var(--status-amber);
+  box-shadow: 0 0 15px var(--status-amber);
 }
 
 @keyframes micPulse {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.08); }
+  0% { transform: scale(1); box-shadow: 0 0 12px rgba(239, 68, 68, 0.6); }
+  100% { transform: scale(1.12); box-shadow: 0 0 25px rgba(239, 68, 68, 0.95); }
+}
+
+@keyframes micSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .input-wrapper {
@@ -1061,3 +1101,398 @@ body {
 .hud-btn:hover {
   box-shadow: 0 0 12px var(--accent-glow);
 }
+
+.hud-btn.secondary {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  color: var(--bg-primary);
+}
+
+.hud-btn.outline {
+  background: transparent;
+  border: 1px solid var(--border-glow);
+  color: var(--text-main);
+}
+
+.hud-btn.outline:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent-cyan);
+}
+
+/* Voice Mute Button State */
+#btn-mute-toggle.muted {
+  border-color: var(--status-amber);
+  color: var(--status-amber);
+  background: rgba(245, 158, 11, 0.12);
+}
+
+#btn-mute-toggle.muted:hover {
+  background: var(--status-amber);
+  color: var(--bg-primary);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Voice Config Box in Modal */
+.voice-config-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-glow);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.voice-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.voice-name {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.voice-status-active {
+  color: var(--status-green);
+  text-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+}
+
+.voice-actions-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* ============================================================
+   TACTICAL ARCHIVE MODAL (Milestone 3: Memories, Tasks, Reminders)
+   ============================================================ */
+.archive-modal-card {
+  max-width: 720px;
+  width: 92%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.archive-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 0 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--border-glow);
+}
+
+.archive-tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.archive-tab-btn:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.archive-tab-btn.active {
+  color: var(--accent-cyan);
+  border-bottom-color: var(--accent-cyan);
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.archive-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  max-height: calc(85vh - 120px);
+}
+
+.archive-tab-pane {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.archive-tab-pane.active {
+  display: flex;
+}
+
+/* Input Bars */
+.archive-input-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.archive-input {
+  flex: 1;
+  min-width: 200px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-glow);
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-size: 12px;
+  transition: all var(--transition-fast);
+}
+
+.archive-input:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.archive-input.date-input {
+  flex: 0 0 160px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.archive-input.datetime-input {
+  flex: 0 0 200px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color-scheme: dark;
+}
+
+.archive-search-bar {
+  display: flex;
+}
+
+.archive-search-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  transition: all var(--transition-fast);
+}
+
+.archive-search-input:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* Task Filter Chips */
+.task-filter-chips {
+  display: flex;
+  gap: 6px;
+}
+
+.task-filter-btn {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.task-filter-btn:hover {
+  color: var(--text-main);
+  border-color: var(--border-glow);
+}
+
+.task-filter-btn.active {
+  background: var(--accent-dim);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* Archive List & Items */
+.archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.archive-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 10px 14px;
+  transition: all var(--transition-fast);
+  gap: 12px;
+}
+
+.archive-item:hover {
+  background: rgba(0, 240, 255, 0.04);
+  border-color: var(--border-glow);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.archive-item.completed {
+  opacity: 0.65;
+}
+
+.archive-item.completed .item-title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.item-checkbox {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1.5px solid var(--border-glow);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.item-checkbox:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+.item-checkbox:checked {
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+.item-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bg-primary);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.item-title {
+  font-size: 13px;
+  color: var(--text-main);
+  word-break: break-word;
+}
+
+.item-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.icon-action-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.icon-action-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.icon-action-btn.delete:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.icon-action-btn.edit:hover {
+  background: var(--accent-dim);
+  color: var(--accent-cyan);
+  border-color: var(--border-glow);
+}
+
+/* Status Badges */
+.badge-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.badge-active {
+  background: rgba(0, 240, 255, 0.12);
+  color: var(--accent-cyan);
+  border: 1px solid var(--border-glow);
+}
+
+.badge-overdue {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.badge-completed {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--status-green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Empty State */
+.archive-empty {
+  padding: 30px 10px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+

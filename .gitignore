@@ -1,0 +1,168 @@
+# ==============================================================================
+# E.D.I.T.H. (Even Dead, I'm The Hero) - Future-Proof Git Security Configuration
+# ==============================================================================
+# This file guarantees that personal data, user chat logs, sqlite databases,
+# voice recordings, audio cache, credentials, and heavy AI models are NEVER
+# pushed to public or remote Git repositories.
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. DEDICATED RUNTIME DATA & USER STORAGE (Current & Future)
+# ------------------------------------------------------------------------------
+# Any folder storing runtime data, personal user state, or memory
+/data/
+/user_data/
+/runtime/
+/recordings/
+/logs/
+/memory_data/
+/audio_cache/
+/temp/
+/tmp/
+/user_documents/
+/docs_store/
+
+# Retain directory structure in Git if .gitkeep is added
+!/data/.gitkeep
+!/recordings/.gitkeep
+!/logs/.gitkeep
+
+# ------------------------------------------------------------------------------
+# 2. LOCAL DATABASES & MEMORY STORES (Pattern Matches)
+# ------------------------------------------------------------------------------
+# SQLite databases (chat history, tasks, reminders, embeddings)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlitedb
+
+# Vector databases & local embeddings (Milestone 5 Document Search)
+*.vec
+*.vector
+*.index
+*.faiss
+chroma_db/
+vector_store/
+
+# ------------------------------------------------------------------------------
+# 3. AUDIO FILES, VOICE RECORDINGS & SYNTHESIZED SPEECH
+# ------------------------------------------------------------------------------
+# Speech-to-text intake, temporary voice clips, and TTS audio outputs
+*.wav
+*.mp3
+*.ogg
+*.flac
+*.m4a
+*.aac
+*.pcm
+
+# ------------------------------------------------------------------------------
+# 4. DOWNLOADED AI MODELS & WEIGHTS (Large Binary Files)
+# ------------------------------------------------------------------------------
+# Piper TTS models, Whisper models, Ollama/GGUF weights
+/voice/models/*.onnx
+/voice/models/*.onnx.json
+/voice/models/whisper/
+whisper/
+!/voice/models/MODEL_CARD
+!/voice/models/README.md
+
+# General model file patterns (prevent accidental multi-gigabyte commits)
+*.onnx
+*.onnx.json
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.tflite
+*.model
+/models/
+/checkpoints/
+
+# ------------------------------------------------------------------------------
+# 5. ENVIRONMENT SECRETS, TOKENS & PRIVATE CREDENTIALS
+# ------------------------------------------------------------------------------
+# Environment configuration
+.env
+.env.*
+*.env
+!*.env.example
+
+# Tokens, keys, and private credentials
+*secret*.*
+*token*.*
+*credentials*.*
+*.pem
+*.key
+*.cert
+*.pfx
+*.p12
+
+# ------------------------------------------------------------------------------
+# 6. APPLICATION LOGS & DIAGNOSTIC DUMPS
+# ------------------------------------------------------------------------------
+*.log
+*.log.*
+*.dmp
+*.dump
+*.stackdump
+
+# ------------------------------------------------------------------------------
+# 7. PYTHON COMPILATION & VIRTUAL ENVIRONMENTS
+# ------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Packaging & distribution
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ------------------------------------------------------------------------------
+# 8. OPERATING SYSTEM & IDE ARTIFACTS
+# ------------------------------------------------------------------------------
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE / Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~

@@ -54,11 +54,16 @@ def launch_edith():
         text_select=False,
         confirm_close=False
     )
+    bridge_api.set_window(window)
+    window.events.closed += bridge_api.cleanup
 
     # 4. Start PyWebView loop (Windows GUI thread)
     print("[+] EDITH HUD Window Active. Engaging desktop session...")
-    webview.start(debug=False)
-    print("[*] EDITH session safely terminated.")
+    try:
+        webview.start(debug=False)
+    finally:
+        bridge_api.cleanup()
+        print("[*] EDITH session safely terminated.")
 
 if __name__ == "__main__":
     launch_edith()
